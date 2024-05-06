@@ -34,7 +34,7 @@ int main(int argc, char ** argv)
 
     //variabili di configurazione
     unsigned int m = 10;
-    unsigned int p = 100 ;
+    unsigned int p = 1000 ;
 
 
 
@@ -65,43 +65,44 @@ int main(int argc, char ** argv)
             for (unsigned int i = 0; i < perturbazione; i++)
             {
                 vOrigin[i] = rand() % 100;
-
-                vector<int> vBubble(dimv);
-                vBubble = vOrigin;
-
-                vector<int> vMerge(dimv);
-                vMerge = vOrigin;
-
-                double sommaMerge100 = 0;
-                for (unsigned t = 0; t<m; t++)
-                {
-                // tempi mergeSort
-                    chrono::steady_clock::time_point t_begin2 =  chrono::steady_clock::now();
-                    SortLibrary::MergeSort(vMerge);
-                    chrono::steady_clock::time_point t_end2 = chrono::steady_clock::now();
-                    vMerge= vOrigin;
-                    double timeElapsed2 = chrono::duration_cast<chrono::nanoseconds> (t_end2 - t_begin2).count();
-                    sommaMerge100 = sommaMerge100 + timeElapsed2;
-                }
-                double MergeT = sommaMerge100/m;
-
-
-                double sommaBubble100 = 0;
-                for (unsigned t = 0; t<m; t++)
-                {
-                // tempi bubbleSort
-                    chrono::steady_clock::time_point t_begin =  chrono::steady_clock::now();
-                    SortLibrary::BubbleSort(vBubble);
-                    chrono::steady_clock::time_point t_end = chrono::steady_clock::now();
-                    vBubble = vOrigin;
-                    double timeElapsed = chrono::duration_cast<chrono::nanoseconds> (t_end - t_begin).count();
-                    sommaBubble100 = sommaBubble100 + timeElapsed;
-                }
-                double BubbleT = sommaBubble100/m;
-
-                sommaMerge = sommaMerge + MergeT;
-                sommaBubble = sommaBubble + BubbleT;
             }
+
+
+            vector<int> vBubble(dimv);
+            vBubble = vOrigin;
+
+            vector<int> vMerge(dimv);
+            vMerge = vOrigin;
+
+            double sommaMerge100 = 0;
+            for (unsigned t = 0; t<m; t++)
+            {
+            // tempi mergeSort
+                chrono::steady_clock::time_point t_begin2 =  chrono::steady_clock::now();
+                SortLibrary::MergeSort(vMerge);
+                chrono::steady_clock::time_point t_end2 = chrono::steady_clock::now();
+                vMerge= vOrigin;
+                double timeElapsed2 = chrono::duration_cast<chrono::nanoseconds> (t_end2 - t_begin2).count();
+                sommaMerge100 = sommaMerge100 + timeElapsed2;
+            }
+            double MergeT = sommaMerge100/m;
+
+
+            double sommaBubble100 = 0;
+            for (unsigned t = 0; t<m; t++)
+            {
+            // tempi bubbleSort
+                chrono::steady_clock::time_point t_begin =  chrono::steady_clock::now();
+                SortLibrary::BubbleSort(vBubble);
+                chrono::steady_clock::time_point t_end = chrono::steady_clock::now();
+                vBubble = vOrigin;
+                double timeElapsed = chrono::duration_cast<chrono::nanoseconds> (t_end - t_begin).count();
+                sommaBubble100 = sommaBubble100 + timeElapsed;
+            }
+            double BubbleT = sommaBubble100/m;
+
+            sommaMerge = sommaMerge + MergeT;
+            sommaBubble = sommaBubble + BubbleT;
         }
 
         double mediaMerge = sommaMerge/p;
